@@ -1,0 +1,33 @@
+# Manufacturing Performance Analysis
+# Email (verification): 23f1001119@ds.study.iitm.ac.in
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+TARGET = 90.0
+
+def main():
+    df = pd.read_csv("data.csv")
+    # Ensure order Q1..Q4
+    order = ["Q1","Q2","Q3","Q4"]
+    df["quarter"] = pd.Categorical(df["quarter"], categories=order, ordered=True)
+    df = df.sort_values("quarter")
+
+    avg = round(df["efficiency"].mean(), 2)
+    print(f"Average equipment efficiency: {avg}")
+
+    # Simple trend plot vs target
+    plt.figure(figsize=(8, 5))
+    plt.plot(df["quarter"], df["efficiency"], marker="o", label="Equipment Efficiency")
+    plt.axhline(TARGET, linestyle="--", label="Industry Target (90)")
+    plt.title("Equipment Efficiency Rate — 2024 Quarterly Trend")
+    plt.xlabel("Quarter")
+    plt.ylabel("Efficiency")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig("trend_vs_target.png")
+    print("Saved chart: trend_vs_target.png")
+
+if __name__ == "__main__":
+    main()
