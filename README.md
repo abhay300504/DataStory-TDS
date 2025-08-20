@@ -15,4 +15,4 @@ Data is stored in `data.csv`.
 
 ## How to run
 ```bash
-python analysis.py
+python data.py
